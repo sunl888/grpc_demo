@@ -5,7 +5,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
-	pb "grpc_demo/proto" // 引入proto包
+	pb "grpc_demo/proto/hello" // 引入proto包
 )
 
 const (

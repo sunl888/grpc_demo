@@ -1,12 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"golang.org/x/net/context"
+	"golang.org/x/net/trace" // 引入trace包
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	pb "grpc_demo/proto/hello" // 引入编译生成的包
+	"log"
 	"net"
+	"net/http"
 )
 
 const (
@@ -39,7 +41,17 @@ func main() {
 	// 注册HelloService
 	pb.RegisterHelloServer(s, HelloService)
 
-	fmt.Println("Listen on " + Address)
+	// 开启trace
+	go startTrace()
 
+	log.Println("Listen on " + Address)
 	s.Serve(listen)
+}
+
+func startTrace() {
+	trace.AuthRequest = func(req *http.Request) (any, sensitive bool) {
+		return true, true
+	}
+	go http.ListenAndServe(":50051", nil)
+	log.Println("Trace listen on 50051")
 }

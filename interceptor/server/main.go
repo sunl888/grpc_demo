@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/metadata"
-	pb "grpc_demo/proto"
+	pb "grpc_demo/proto/hello"
 	"net"
 )
 
@@ -55,7 +55,7 @@ func main() {
 	}
 
 	var opts []grpc.ServerOption
-	// 注册interceptor
+	// 在实例化server前注册需要的interceptor
 	var interceptor grpc.UnaryServerInterceptor
 	interceptor = func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 		err = auth(ctx)

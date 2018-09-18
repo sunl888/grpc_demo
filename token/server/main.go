@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
-
-	pb "grpc_demo/proto"
-
+	pb "grpc_demo/proto/hello"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
